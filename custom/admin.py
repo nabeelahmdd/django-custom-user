@@ -19,10 +19,10 @@ admin.site.register(UserCategory, UserCategoryAdmin)
 # User register to admin
 class UserAdmin(admin.ModelAdmin):
     list_display = (
-    	'first_name', 'last_name', 'email', 'phone_number',
+    	'email', 'first_name', 'last_name', 'phone_number',
     )
     search_fields = (
-    	'first_name', 'last_name', 'email', 'phone_number',
+    	'email','first_name', 'last_name',  'phone_number',
     )
     list_filter = ('date_joined',)
 
