@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser, PermissionsMixin
 )
- 
+
 # Create your models here.
 GENDER_CHOICES = (
     ('f', 'female'),
@@ -18,7 +18,7 @@ class UserCategory(models.Model):
 
     def __str__(self):
         return self.name
-        
+
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None):
         """
@@ -65,64 +65,64 @@ class User(
 	PermissionsMixin
 ):
 	first_name = models.CharField(max_length=250)
-    last_name = models.CharField(max_length=250, blank=True)
-    email = models.EmailField(
-        verbose_name='email address', unique=True
-    )
-    phone_number = models.CharField(max_length=15)
-    image = models.ImageField(
-        upload_to="user_images", null=True, blank=True)
-    gender = models.CharField(
-        max_length=20, choices=GENDER_CHOICES, default="m"
-    )
+	last_name = models.CharField(max_length=250, blank=True)
+	email = models.EmailField(
+		verbose_name='email address', unique=True
+	)
+	phone_number = models.CharField(max_length=15)
+	image = models.ImageField(
+		upload_to="user_images", null=True, blank=True
+	)
+	gender = models.CharField(
+		max_length=20, choices=GENDER_CHOICES, default="m"
+	)
 
 
-    is_active = models.BooleanField(default=True)
-    staff = models.BooleanField(default=False) # a admin user; non super-user
-    manager = models.BooleanField(default=False) # a superuser
-    username = None
-    
-    
-    category = models.ForeignKey(
-    	UserCategory, on_delete=models.RESTRICT,
-    	null=True, blank=True
-    )
-    soft_delete = models.BooleanField(default=False)
-    cr_by = models.ForeignKey(
-    	'User', on_delete=models.RESTRICT, related_name="user_cr_by",
-    	null=True, blank=True
-    )
-    up_by = models.ForeignKey(
-    	'User', on_delete=models.RESTRICT, related_name="user_up_by",
-    	null=True, blank=True
-    )
-    
-    date_joined = models.DateTimeField(auto_now_add=True, null=True)
-    last_update = models.DateTimeField(auto_now_add=True, null=True)
-    # notice the absence of a "Password field", that is built in.
+	is_active = models.BooleanField(default=True)
+	staff = models.BooleanField(default=False)  # a admin user; non super-user
+	manager = models.BooleanField(default=False)  # a superuser
+	username = None
+	
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = [] # Email & Password are required by default.
+	category = models.ForeignKey(
+	    UserCategory, on_delete=models.RESTRICT,
+	    null=True, blank=True
+	)
+	soft_delete = models.BooleanField(default=False)
+	cr_by = models.ForeignKey(
+		'User', on_delete=models.RESTRICT, related_name="user_cr_by",
+		null=True, blank=True
+	)
+	up_by = models.ForeignKey(
+		'User', on_delete=models.RESTRICT, related_name="user_up_by",
+		null=True, blank=True
+	)
 
-    objects = UserManager()
-
-    def __str__(self):
-        return self.email
-
-
-    @property
-    def is_staff(self):
-        "Is the user a member of staff?"
-        return self.staff
-
-    @property
-    def is_manager(self):
-        "Is the user a member of manager?"
-        return self.manager
+	date_joined = models.DateTimeField(auto_now_add=True)
+	last_update = models.DateTimeField(auto_now_add=True)
+	# notice the absence of a "Password field", that is built in.
+	
+	USERNAME_FIELD = 'email'
+	REQUIRED_FIELDS = [] # Email & Password are required by default.
+	
+	objects = UserManager()
+	
+	def __str__(self):
+	    return self.email
+	    
+	@property
+	def is_staff(self):
+	    "Is the user a member of staff?"
+	    return self.staff
 
 
-    @property
-    def category_name(self):
-        "Is the user has a category?"
-        return self.category.name if self.category else ""
+	@property
+	def is_manager(self):
+		"Is the user a member of manager?"
+		return self.manager
 
+
+	@property
+	def category_name(self):
+		"Is the user has a category?"
+		return self.category.name if self.category else ""
