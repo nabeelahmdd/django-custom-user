@@ -98,10 +98,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     # added custom validators
     {
-        'NAME': 'backends.validators.NumberValidator',
+        'NAME': 'mysite.validators.NumberValidator',
     },
     {
-        'NAME': 'backends.validators.SymbolValidator',
+        'NAME': 'mysite.validators.SymbolValidator',
     },
 ]
 
