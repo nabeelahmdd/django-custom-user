@@ -69,7 +69,7 @@ class User(
 	email = models.EmailField(
 		verbose_name='email address', unique=True
 	)
-	phone_number = models.CharField(max_length=15)
+	phone_number = models.CharField(max_length=15, null=True, blank=True)
 	image = models.ImageField(
 		upload_to="user_images", null=True, blank=True
 	)
