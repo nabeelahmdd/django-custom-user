@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 {% load i18n %}
 {% load account %}
-
+{% load socialaccount %}
 {% block content %}
 
 
@@ -36,6 +36,16 @@
               <div class="d-grid">
                 <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Sign
                   in</button>
+              </div>
+              <div class="d-grid mb-2 mt-2">
+                <a class="btn btn-google btn-login text-uppercase fw-bold" href="{% provider_login_url 'google' %}">
+                  <i class="fab fa-google me-2"></i> Sign in with Google
+                </a>
+              </div>
+              <div class="d-grid">
+                <a class="btn btn-facebook btn-login text-uppercase fw-bold" href="{% provider_login_url 'facebook' %}">
+                  <i class="fab fa-facebook-f me-2"></i> Sign in with Facebook
+                </a>
               </div>
               <hr class="my-4">
               <div class="row mt-3">
